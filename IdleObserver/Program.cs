@@ -5,9 +5,9 @@ using PubSub;
 IIdlePublishService idlePublishService = new IdlePublishService();
 
 var subscribtion = idlePublishService
-    .Subscribe(new UserActivityObserver(OnWork, OnNotWork, TimeSpan.Parse("00:00:05")));
+    .Subscribe(new UserActivityObserver(OnWork, OnIdle, TimeSpan.Parse("00:00:05")));
 
-void OnNotWork()
+void OnIdle()
 {
     Console.WriteLine("Work");
 }
@@ -21,7 +21,7 @@ void OnWork()
 subscribtion.Dispose();
 
 var photoControlSubsribtion = idlePublishService
-    .Subscribe(new PhotoControlActivityObserver(OnNotWork));
+    .Subscribe(new PhotoControlActivityObserver(OnIdle));
 photoControlSubsribtion.Dispose();
 
 //todo: можно сделать какой-то базовый observer, который можно будет использовать в разных местах, а на какие-то особые случае выделять отдельный класс.
